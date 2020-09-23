@@ -70,8 +70,18 @@ void print_func(const u_char *packet,uint32_t total_len){
 	int len = 0;
 	memcpy(&mac,packet,sizeof(MAC_INFO));
 	len += sizeof(MAC_INFO);
-	print_mac(mac);
 	uint8_t protocol;
+	IP_INFO ip_check;
+	memcpy(&ip_check,packet+len,sizeof(IP_INFO));
+	if(ntohs(mac.ether_type) != IPv4){
+	printf("ERROR!! It is not IPv4");
+	return ;
+	}
+	if (ip_check.protocol != TCP){
+	printf("ERROR!! It is not TCP");
+	return ;
+	}
+	print_mac(mac);
 //IP INFO
 	switch(ntohs(mac.ether_type)){
 	case IPv4:

@@ -32,7 +32,6 @@ int main(int argc, char* argv[]) {
             break;
         }
 	print_func(packet,header->caplen);
-        printf("%u bytes captured\n", header->caplen);
     }
 
     pcap_close(handle);
